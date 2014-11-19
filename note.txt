@@ -1,0 +1,8 @@
+Google Document:
+https://developers.google.com/accounts/docs/OAuth2InstalledApp
+
+Gmail API Document:
+https://developers.google.com/gmail/api/overview
+
+Some IMAP example using OAuth2.0:
+https://code.google.com/p/google-mail-oauth2-tools/wiki/OAuth2DotPyRunThrough
