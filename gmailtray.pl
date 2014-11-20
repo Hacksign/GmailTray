@@ -8,6 +8,6 @@ BEGIN{
 }
 
 use Data::Dump;
-use GmailTray::UI::Option;
+use GmailTray::UI::Systray;
 
-$option_window = GmailTray::UI::Option->new();
+$w = GmailTray::UI::Systray->new();

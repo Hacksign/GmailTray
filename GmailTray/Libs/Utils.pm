@@ -17,6 +17,9 @@ BEGIN{
 	$debug_mode = 1;
 	$client_id = "913987392517-qkintaca6vvmp0a8ofnvbkf0trnrrda8.apps.googleusercontent.com";
 	$client_secret = "4ASaYcTNVgdrpoH2FjXSLnfx";
+
+	$no_mail_img	=	"/home/hacksign/Code/GitHub/GmailTray/GmailTray/Res/Img/nomail.png";
+	$new_mail_img = "/home/hacksign/Code/GitHub/GmailTray/GmailTray/Res/Img/newmail.png";
 }
 
 sub update_token{
@@ -52,6 +55,19 @@ sub get_dismiss_delay{
 
 sub debugmode{
 	return $debug_mode;
+}
+
+sub get_img{
+	local ($img_file_name) = @_;
+	chomp $img_file_name;
+	$img_file_name = lc($img_file_name);
+	if($img_file_name eq 'nomail'){
+		return $no_mail_img;
+	}elsif($img_file_name eq 'newmail'){
+		return $new_mail_img;
+	}else{
+		return 0;
+	}
 }
 
 sub dump{
