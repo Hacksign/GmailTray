@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-package GmailTray::GMail::OAuth2;
+package GmailTray::Gmail::OAuth2;
 
 BEGIN{
 	use strict;
@@ -30,7 +30,7 @@ sub access_token{
 	};
 	local $ua = LWP::UserAgent->new();
 	$ua->show_progress(GmailTray::Libs::Utils::debugmode());
-	$ua->env_proxy(1) if GmailTray::Libs::Utils::get_proxy() ne '';
+	$ua->env_proxy(1) if GmailTray::Libs::Utils::get_proxy();
 	local $response = $ua->post($url,$post_data);
 	if($response->is_success()){
 		local $json_parser = JSON->new();
@@ -53,7 +53,7 @@ sub refresh_token{
 	};
 	local $ua = LWP::UserAgent->new();
 	$ua->show_progress(GmailTray::Libs::Utils::debugmode());
-	$ua->env_proxy(1) if GmailTray::Libs::Utils::get_proxy() ne '';
+	$ua->env_proxy(1) if GmailTray::Libs::Utils::get_proxy();
 	local $response = $ua->post($url,$post_data);
 	if($response->is_success()){
 		local $json_parser = JSON->new();

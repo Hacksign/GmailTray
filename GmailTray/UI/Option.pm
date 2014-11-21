@@ -6,8 +6,6 @@ BEGIN{
 	use strict;
 	#add include directory to search path
 	use utf8;
-	use threads;
-	use threads::shared;
 	use Gtk2 qw/-init/;
 	use GmailTray::UI::Language qw/%language/;
 	use GmailTray::Libs::Utils;
@@ -46,7 +44,7 @@ sub create_main_window{
 			$proxy_entry = Gtk2::Entry->new();
 			$proxy_entry->set_width_chars(15);
 			$proxy_entry->set_alignment(0);
-			$proxy_entry->append_text(GmailTray::Libs::Utils::get_proxy()) if GmailTray::Libs::Utils::get_proxy() ne '';      
+			$proxy_entry->append_text(GmailTray::Libs::Utils::get_proxy()) if GmailTray::Libs::Utils::get_proxy();      
 			$proxy_label->set_mnemonic_widget ($proxy_entry);
 			$basic_info_table->attach_defaults($proxy_label, 0, 1, 0, 1);
 			$basic_info_table->attach_defaults($proxy_entry, 1, 2, 0, 1);
@@ -69,7 +67,7 @@ sub create_main_window{
 			local $checkfreq_entry = Gtk2::Entry->new();
 			$checkfreq_entry->set_width_chars(4);
 			$checkfreq_entry->set_alignment(0.5);
-			$checkfreq_entry->append_text(GmailTray::Libs::Utils::get_checkfreq()) if GmailTray::Libs::Utils::get_checkfreq() ne '';      
+			$checkfreq_entry->append_text(GmailTray::Libs::Utils::get_checkfreq()) if GmailTray::Libs::Utils::get_checkfreq();      
 			$checkfreq_label->set_mnemonic_widget($checkfreq_entry);
 			$checkoption_table->attach_defaults($checkfreq_entry, 1, 2, 0, 1);
 
@@ -92,10 +90,14 @@ sub create_main_window{
 			{
 				$proxy = $proxy_entry->get_text();
 			}
-			require GmailTray::UI::Authentication;
-			local $auth_window = GmailTray::UI::Authentication->new();
+			if(GmailTray::Libs::Utils::refresh_token() eq '' or GmailTray::Libs::Utils::access_token() eq ''){
+				require GmailTray::UI::Authentication;
+				local $auth_window = GmailTray::UI::Authentication->new();
+			}else{
+				print "refresh token:".GmailTray::Libs::Utils::refresh_token()."\n";
+				print "access  token:".GmailTray::Libs::Utils::access_token()."\n";
+			}
 		}
-		GmailTray::Libs::Utils::dump();
 		$option_dialog->destroy();
 	}
 }

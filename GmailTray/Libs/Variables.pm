@@ -13,7 +13,7 @@ BEGIN{
 	use threads::shared;
 	use Exporter;
 	our @ISA = qw/Exporter/;
-	our @EXPORT = qw/$user $checkfreq $dismiss_delay $proxy $debug_mode $client_id $client_secret $access_token $refresh_token $access_token_expire $token_gain_time $no_mail_img $new_mail_img/;
+	our @EXPORT = qw/$user $checkfreq $dismiss_delay $proxy $debug_mode $client_id $client_secret $access_token $refresh_token $access_token_expire $token_gain_time $no_mail_img $new_mail_img $token_type $timeout/;
 }
 
 our $user :shared; #email address of current user
@@ -23,6 +23,7 @@ our $checkfreq :shared; #in second, how often check email
 our $debug_mode :shared; #is debug mode
 our $no_mail_img :shared; #trayicon image when no mail
 our $new_mail_img :shared; #trayicon image when new mail
+our $timeout :shared; #timeout value in seconds
 
 #for Goolge OAuth 2.0
 our $client_id :shared; #GmilTray client_id from 'Google API Console'
@@ -30,6 +31,7 @@ our $client_secret :shared; #GmilTray client_secret from 'Google API Console'
 our $access_token :shared; #OAuth2.0 parameter
 our $refresh_token :shared;#OAuth2.0 parameter
 our $access_token_expire :shared;#OAuth2.0 parameter
+our $token_type :shared;#http header type, normally Bearer
 our $token_gain_time :shared;#unix timestamp to indicate when gained access_token
 
 1;

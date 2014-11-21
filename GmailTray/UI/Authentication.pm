@@ -8,10 +8,6 @@ BEGIN{
 	use Gtk2 -init;
 	use Gtk2::WebKit;
 	use GmailTray::Libs::Utils;
-	#set proxy if there is one
-	if(GmailTray::Libs::Utils::get_proxy() ne ''){
-		$ENV{HTTPS_PROXY} = GmailTray::Libs::Utils::get_proxy();
-	}
 }
 
 sub new{
@@ -37,8 +33,8 @@ sub create_main_window{
 				local $auth_code = $webwidget->get_title();
 				$auth_code =~ s/Success code=//;
 				chomp $auth_code;
-				require GmailTray::GMail::OAuth2;
-				$gmail_oauth = GmailTray::GMail::OAuth2->new($auth_code);
+				require GmailTray::Gmail::OAuth2;
+				$gmail_oauth = GmailTray::Gmail::OAuth2->new($auth_code);
 				local %access_json = $gmail_oauth->access_token();
 				GmailTray::Libs::Utils::update_token(%access_json);
 				$glogin_dialog->destroy();
